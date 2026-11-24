@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="ru">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>За Мишаню! · Приглашение</title>
+<meta property="og:title" content="У Дмитрия и Яны родился Мишаня!">
+<style>
+*{box-sizing:border-box}body{margin:0;min-height:100vh;min-height:100svh;display:grid;place-items:center;padding:clamp(12px,4vw,56px);background:#f8edda;color:#203f32;font:1rem/1.5 Arial,sans-serif}
+main{width:min(100%,1050px);display:grid;grid-template-columns:1.65fr 1fr;border:1px solid #203f32;border-radius:26px;overflow:hidden;box-shadow:0 14px 36px #50371520}
+section{padding:clamp(24px,5vw,64px);display:flex;flex-direction:column;justify-content:center}
+.hero{position:relative;isolation:isolate;overflow:hidden;background:#f8cf56;min-height:440px}
+.star{position:absolute;z-index:-1;bottom:-.48em;right:-.18em;color:#ffe68d;font-size:clamp(245px,40vw,550px);line-height:1}
+.kicker{font-weight:bold;margin:0 0 18px;font-size:clamp(1rem,2vw,1.25rem)}
+h1{font:italic bold clamp(3rem,8.2vw,7.2rem)/.98 Georgia,serif;letter-spacing:-.075em;margin:0 0 24px}
+.invite{font-size:clamp(1.12rem,2vw,1.45rem);margin:0;max-width:24ch}
+.details{background:#203f32;color:#fff4de;align-items:flex-start}
+.spark{color:#f8cf56;font-size:2rem;margin:0 0 18px}h2{font-size:1rem;margin:0 0 12px}
+address{font:normal clamp(1.65rem,3.4vw,2.65rem)/1.12 Georgia,serif;margin:0 0 24px}
+button{font:inherit;font-weight:bold;background:#f8cf56;color:#203f32;border:0;border-radius:99px;padding:12px 18px;cursor:pointer;min-height:44px}button:hover{background:#ffe68d}button:focus-visible{outline:3px solid white;outline-offset:4px}
+@media(max-width:740px){main{grid-template-columns:1fr}.hero{min-height:310px}.spark{display:none}h1{font-size:clamp(3rem,13vw,5.5rem)}}
+</style>
+<main>
+<section class="hero" aria-labelledby="title">
+<span class="star" aria-hidden="true">✦</span>
+<p class="kicker">У Дмитрия и Яны родился сын!</p>
+<h1 id="title">Мишаня!</h1>
+<p class="invite">Поздравьте нас! Давайте поднимем бокалы за Мишаню!</p>
+</section>
+<section class="details" aria-labelledby="where">
+<p class="spark" aria-hidden="true">✦</p>
+<h2 id="where">Место сбора</h2>
+<address>ул. Отечественная, 39</address>
+<button id="copy" type="button" hidden>Скопировать адрес</button>
+</section>
+</main>
+<script>
+const button = document.querySelector('#copy');
+const address = document.querySelector('address');
+if (navigator.clipboard) {
+  button.hidden = false;
+  button.addEventListener('click', async () => {
+    try {
+      await navigator.clipboard.writeText(address.textContent);
+      button.textContent = 'Адрес скопирован';
+    } catch {
+      window.getSelection().selectAllChildren(address);
+      button.textContent = 'Адрес выделен';
+    }
+  });
+}
+</script>
