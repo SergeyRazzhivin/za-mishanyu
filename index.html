@@ -108,8 +108,19 @@
     h2 { margin: 0 0 4px; font-size: 1rem; }
     address { font: normal 1.375rem / 1.35 Georgia, serif; }
 
-    button {
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 16px;
       margin-top: 8px;
+    }
+
+    .map-link {
+      display: inline-flex;
+      align-items: center;
+    }
+
+    .map-link, button {
       padding: 0;
       min-height: 44px;
       background: transparent;
@@ -122,8 +133,8 @@
       cursor: pointer;
     }
 
-    button:hover { color: var(--ink); }
-    button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+    .map-link:hover, button:hover { color: var(--ink); }
+    .map-link:focus-visible, button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
 
     .illustration {
       position: absolute;
@@ -158,6 +169,7 @@
       }
 
       .location { margin-top: 0; padding-top: 12px; }
+      .actions { justify-content: center; }
     }
   </style>
 </head>
@@ -172,7 +184,10 @@
     <section class="location" aria-labelledby="where">
       <h2 id="where">Место сбора</h2>
       <address>ул. Отечественная, 39</address>
-      <button id="copy" type="button" hidden>Скопировать адрес</button>
+      <div class="actions">
+        <a class="map-link" href="https://yandex.ru/maps/?text=%D1%83%D0%BB.%20%D0%9E%D1%82%D0%B5%D1%87%D0%B5%D1%81%D1%82%D0%B2%D0%B5%D0%BD%D0%BD%D0%B0%D1%8F%2C%2039" target="_blank" rel="noopener noreferrer">Открыть в Яндекс Картах</a>
+        <button id="copy" type="button" hidden>Скопировать адрес</button>
+      </div>
     </section>
   </main>
   <script>
