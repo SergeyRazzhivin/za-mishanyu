@@ -1,52 +1,196 @@
 <!doctype html>
 <html lang="ru">
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<meta name="robots" content="noindex">
-<title>За Мишаню! · Приглашение</title>
-<meta property="og:title" content="У Дмитрия и Яны родился Мишаня!">
-<style>
-*{box-sizing:border-box}body{margin:0;min-height:100vh;min-height:100svh;display:grid;place-items:center;padding:clamp(12px,4vw,56px);background:#f8edda;color:#203f32;font:1rem/1.5 Arial,sans-serif}
-main{width:min(100%,1050px);display:grid;grid-template-columns:1.65fr 1fr;border:1px solid #203f32;border-radius:26px;overflow:hidden;box-shadow:0 14px 36px #50371520}
-section{padding:clamp(24px,5vw,64px);display:flex;flex-direction:column;justify-content:center}
-.hero{position:relative;isolation:isolate;overflow:hidden;background:#f8cf56;min-height:440px}
-.star{position:absolute;z-index:-1;bottom:-.48em;right:-.18em;color:#ffe68d;font-size:clamp(245px,40vw,550px);line-height:1}
-.kicker{font-weight:bold;margin:0 0 18px;font-size:clamp(1rem,2vw,1.25rem)}
-h1{font:italic bold clamp(3rem,8.2vw,7.2rem)/.98 Georgia,serif;letter-spacing:-.075em;margin:0 0 24px}
-.invite{font-size:clamp(1.12rem,2vw,1.45rem);margin:0;max-width:24ch}
-.details{background:#203f32;color:#fff4de;align-items:flex-start}
-.spark{color:#f8cf56;font-size:2rem;margin:0 0 18px}h2{font-size:1rem;margin:0 0 12px}
-address{font:normal clamp(1.65rem,3.4vw,2.65rem)/1.12 Georgia,serif;margin:0 0 24px}
-button{font:inherit;font-weight:bold;background:#f8cf56;color:#203f32;border:0;border-radius:99px;padding:12px 18px;cursor:pointer;min-height:44px}button:hover{background:#ffe68d}button:focus-visible{outline:3px solid white;outline-offset:4px}
-@media(max-width:740px){main{grid-template-columns:1fr}.hero{min-height:310px}.spark{display:none}h1{font-size:clamp(3rem,13vw,5.5rem)}}
-</style>
-<main>
-<section class="hero" aria-labelledby="title">
-<span class="star" aria-hidden="true">✦</span>
-<p class="kicker">У Дмитрия и Яны родился сын!</p>
-<h1 id="title">Мишаня!</h1>
-<p class="invite">Поздравьте нас! Давайте поднимем бокалы за Мишаню!</p>
-</section>
-<section class="details" aria-labelledby="where">
-<p class="spark" aria-hidden="true">✦</p>
-<h2 id="where">Место сбора</h2>
-<address>ул. Отечественная, 39</address>
-<button id="copy" type="button" hidden>Скопировать адрес</button>
-</section>
-</main>
-<script>
-const button = document.querySelector('#copy');
-const address = document.querySelector('address');
-if (navigator.clipboard) {
-  button.hidden = false;
-  button.addEventListener('click', async () => {
-    try {
-      await navigator.clipboard.writeText(address.textContent);
-      button.textContent = 'Адрес скопирован';
-    } catch {
-      window.getSelection().selectAllChildren(address);
-      button.textContent = 'Адрес выделен';
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#faf2e2">
+  <title>У нас родился сын! · За Мишаню!</title>
+  <meta property="og:title" content="У нас родился сын — Мишаня!">
+  <meta property="og:description" content="Приглашаем поднять бокалы за Мишаню.">
+  <meta property="og:image" content="https://sergeyrazzhivin.github.io/za-mishanyu/booties.jpg">
+  <link rel="preload" href="marck-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    @font-face {
+      font-family: "Marck Script";
+      src: url("marck-cyrillic.woff2") format("woff2");
+      font-display: swap;
+      unicode-range: U+0301, U+0400-045F, U+0490-0491, U+04B0-04B1, U+2116;
     }
-  });
-}
-</script>
+
+    @font-face {
+      font-family: "Marck Script";
+      src: url("marck-latin.woff2") format("woff2");
+      font-display: swap;
+      unicode-range: U+0000-00FF;
+    }
+
+    :root {
+      color-scheme: light;
+      --ink: #49311e;
+      --blue: #304f6b;
+      --paper: #fff2d9;
+      --gold: #b7802e;
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      min-height: 100svh;
+      display: grid;
+      place-items: center;
+      padding: clamp(12px, 4vw, 56px);
+      background: radial-gradient(ellipse at top, #fffaf1, #efe1c9);
+      color: var(--ink);
+      font: 1.125rem / 1.5 Georgia, serif;
+    }
+
+    .postcard {
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(0, 1.16fr);
+      grid-template-areas: "message picture" "location picture";
+      align-content: center;
+      width: min(100%, 1060px);
+      min-height: 540px;
+      padding: clamp(26px, 5.5vw, 80px);
+      border: 1px solid #bc925a;
+      border-radius: 8px;
+      background: var(--paper);
+      box-shadow: 0 18px 48px #6f4a2826, 0 3px 8px #6f4a2814;
+    }
+
+    .postcard::before {
+      content: "";
+      position: absolute;
+      inset: clamp(8px, 1.6vw, 19px);
+      z-index: 1;
+      border: 1px solid var(--gold);
+      outline: 1px solid #b7802e69;
+      outline-offset: 4px;
+      border-radius: 3px;
+      pointer-events: none;
+    }
+
+    .message { grid-area: message; align-self: end; }
+    .location { grid-area: location; align-self: start; }
+    .message, .location { position: relative; z-index: 1; }
+
+    .announcement {
+      margin: 0;
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: bold;
+    }
+
+    h1 {
+      margin: .02em 0 .12em;
+      color: var(--blue);
+      font: 400 clamp(3.5rem, 8.5vw, 6rem) / 1.04 "Marck Script", Georgia, serif;
+    }
+
+    .invitation {
+      margin: 0;
+      font-size: clamp(1.125rem, 2.2vw, 1.35rem);
+      text-wrap: balance;
+    }
+
+    .location {
+      width: fit-content;
+      margin-top: 28px;
+      padding-top: 17px;
+      border-top: 1px solid #ba8a4d;
+    }
+
+    h2 { margin: 0 0 4px; font-size: 1rem; }
+    address { font: normal 1.375rem / 1.35 Georgia, serif; }
+
+    button {
+      margin-top: 8px;
+      padding: 0;
+      min-height: 44px;
+      background: transparent;
+      color: var(--blue);
+      border: 0;
+      border-radius: 3px;
+      font: 600 .875rem Arial, sans-serif;
+      text-decoration: underline;
+      text-underline-offset: .23em;
+      cursor: pointer;
+    }
+
+    button:hover { color: var(--ink); }
+    button:focus-visible { outline: 2px solid var(--blue); outline-offset: 3px; }
+
+    .illustration {
+      position: absolute;
+      z-index: 0;
+      right: 3.5%;
+      top: 50%;
+      width: min(53%, 500px);
+      height: auto;
+      transform: translateY(-50%);
+      mask-image: radial-gradient(ellipse 65% 68% at 53% 50%, #000 60%, transparent 96%);
+    }
+
+    @media (max-width: 760px) {
+      .postcard {
+        grid-template-columns: minmax(0, 1fr);
+        grid-template-areas: "message" "picture" "location";
+        justify-items: center;
+        min-height: auto;
+        padding: clamp(29px, 7vw, 46px) clamp(18px, 5vw, 35px) 24px;
+        text-align: center;
+      }
+
+      h1 { font-size: clamp(3.65rem, 15.5vw, 5.5rem); }
+
+      .illustration {
+        position: static;
+        grid-area: picture;
+        transform: none;
+        width: min(100%, 372px);
+        display: block;
+        margin: -10px 0 -12px;
+      }
+
+      .location { margin-top: 0; padding-top: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="postcard" aria-labelledby="title">
+    <header class="message">
+      <p class="announcement">У нас родился сын!</p>
+      <h1 id="title">Мишаня!</h1>
+      <p class="invitation">Поздравьте нас!<br>Давайте поднимем бокалы за&nbsp;Мишаню!</p>
+    </header>
+    <img class="illustration" src="booties.jpg" width="1200" height="1200" alt="">
+    <section class="location" aria-labelledby="where">
+      <h2 id="where">Место сбора</h2>
+      <address>ул. Отечественная, 39</address>
+      <button id="copy" type="button" hidden>Скопировать адрес</button>
+    </section>
+  </main>
+  <script>
+    const button = document.querySelector('#copy');
+    const address = document.querySelector('address');
+
+    if (navigator.clipboard) {
+      button.hidden = false;
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(address.textContent);
+          button.textContent = 'Адрес скопирован';
+        } catch {
+          window.getSelection().selectAllChildren(address);
+          button.textContent = 'Адрес выделен';
+        }
+      });
+    }
+  </script>
+</body>
+</html>
